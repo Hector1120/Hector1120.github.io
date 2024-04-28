@@ -539,10 +539,10 @@ footer a {
 
 @media screen and (max-width: 800px) {
     .redes {
-        display: none;
+        display: inline-block;;
     }
     nav {
-        display: none;
+        display: block;
     }
     nav.responsive {
         display: block;
