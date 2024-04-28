@@ -538,11 +538,11 @@ footer a {
 /* *********************/
 
 @media screen and (max-width: 800px) {
-    .redes {
-        display: inline-block;
-    }
+    /*.redes {
+        display: none;
+    }*/
     nav {
-        display: block;
+        display: none;
     }
     nav.responsive {
         display: block;
