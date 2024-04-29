@@ -539,6 +539,7 @@ footer a {
 
 @media screen and (max-width: 800px) {
     .redes {
+        /* ----------- */
         display: inline-block;
     }
     nav {
