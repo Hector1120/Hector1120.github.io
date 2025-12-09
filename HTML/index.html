@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hector Yurbrainer Lizcano Agudelo - Desarrollador Web & Móvil</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../icons/icono.png"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #00ff87;
+        --secondary: #7c3aed;
+        --accent: #f59e0b;
+        --dark: #0a0a0a;
+        --darker: #050505;
+        --light: #ffffff;
+        --gray: #a3a3a3;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--darker);
+        color: var(--light);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem 5%;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0, 255, 135, 0.1);
+      }
+
+      .nav-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .nav-social {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .nav-social a {
+        color: var(--light);
+        font-size: 1.2rem;
+        transition: all 0.3s;
+      }
+
+      .nav-social a:hover {
+        color: var(--primary);
+        transform: scale(1.2);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--light);
+        text-decoration: none;
+        transition: color 0.3s;
+        font-weight: 500;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+      }
+
+      .menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background: var(--primary);
+        transition: 0.3s;
+      }
+
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding: 2rem 5%;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 255, 135, 0.1),
+          rgba(124, 58, 237, 0.1)
+        );
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(0, 255, 135, 0.2),
+          transparent
+        );
+        border-radius: 50%;
+        top: -250px;
+        right: -250px;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .hero-content {
+        max-width: 1400px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-text h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--light), var(--primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .hero-text .highlight {
+        color: var(--primary);
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .hero-text p {
+        font-size: 1.2rem;
+        color: var(--gray);
+        margin-bottom: 2rem;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: var(--dark);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 255, 135, 0.3);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: var(--light);
+        border: 2px solid var(--primary);
+      }
+
+      .btn-secondary:hover {
+        background: var(--primary);
+        color: var(--dark);
+      }
+
+      .hero-image {
+        position: relative;
+      }
+
+      .hero-image img {
+        width: 100%;
+        max-width: 400px;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 255, 135, 0.2);
+        border: 3px solid var(--primary);
+        margin: 0 auto;
+        display: block;
+      }
+
+      .section {
+        padding: 5rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        margin: 1rem auto;
+        border-radius: 2px;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .skill-card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        transition: all 0.3s;
+        border: 2px solid transparent;
+      }
+
+      .skill-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary);
+        background: rgba(0, 255, 135, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 255, 135, 0.2);
+      }
+
+      .skill-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .skill-card h3 {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .project-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.02)
+        );
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s;
+        border: 2px solid rgba(0, 255, 135, 0.1);
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 255, 135, 0.2);
+        border-color: var(--primary);
+      }
+
+      .project-content {
+        padding: 2rem;
+      }
+
+      .project-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      .tech-tag {
+        padding: 0.3rem 0.8rem;
+        background: rgba(124, 58, 237, 0.3);
+        border-radius: 20px;
+        font-size: 0.85rem;
+        color: var(--light);
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .social-link {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--light);
+        transition: all 0.3s;
+        text-decoration: none;
+        border: 2px solid transparent;
+      }
+
+      .social-link:hover {
+        background: var(--primary);
+        color: var(--dark);
+        transform: translateY(-5px);
+        border-color: var(--primary);
+        box-shadow: 0 10px 20px rgba(0, 255, 135, 0.3);
+      }
+
+      .contact-form {
+        max-width: 600px;
+        margin: 3rem auto;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 2rem;
+        border-radius: 20px;
+        border: 2px solid rgba(0, 255, 135, 0.1);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px solid rgba(0, 255, 135, 0.2);
+        border-radius: 10px;
+        color: var(--light);
+        font-size: 1rem;
+        font-family: inherit;
+        transition: all 0.3s;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(0, 255, 135, 0.05);
+      }
+
+      .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .form-submit {
+        width: 100%;
+        padding: 1rem;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: var(--dark);
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .form-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 255, 135, 0.3);
+      }
+
+      .form-message {
+        text-align: center;
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 10px;
+        display: none;
+      }
+
+      .form-message.success {
+        background: rgba(0, 255, 135, 0.1);
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+
+      .form-message.error {
+        background: rgba(255, 0, 0, 0.1);
+        color: #ff4444;
+        border: 1px solid #ff4444;
+      }
+
+      footer {
+        background: var(--darker);
+        text-align: center;
+        padding: 2rem;
+        margin-top: 5rem;
+        border-top: 1px solid rgba(0, 255, 135, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: flex;
+        }
+
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background: var(--dark);
+          flex-direction: column;
+          padding: 2rem;
+          gap: 1rem;
+          transform: translateX(-100%);
+          transition: 0.3s;
+        }
+
+        .nav-links.active {
+          transform: translateX(0);
+        }
+
+        .nav-social {
+          display: none;
+        }
+
+        .hero-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+
+        .hero-text h1 {
+          font-size: 2.5rem;
+        }
+
+        .cta-buttons {
+          justify-content: center;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .skills-grid {
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-content">
+        <div class="logo">Mi Portafolio</div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#habilidades">Habilidades</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <div class="nav-social">
+          <a href="https://github.com/Hector1120" target="_blank" title="GitHub"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://www.facebook.com/YurLizcano"
+            target="_blank"
+            title="Facebook"
+            ><i class="fab fa-facebook"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/yur._.lizcano/"
+            target="_blank"
+            title="Instagram"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="https://wa.link/w70ji8" target="_blank" title="WhatsApp"
+            ><i class="fab fa-whatsapp"></i
+          ></a>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <div class="hero-text">
+          <span class="highlight">Hola, soy</span>
+          <h1>Hector Yurbrainer Lizcano Agudelo</h1>
+          <p>
+            Desarrollador Web & Móvil Full Stack especializado en crear
+            soluciones innovadoras con React, Django, Flutter y más.
+          </p>
+          <div class="cta-buttons">
+            <a href="#proyectos" class="btn btn-primary">Ver Proyectos</a>
+            <a href="#contacto" class="btn btn-secondary">Contáctame</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="../images/mifoto.jpeg" alt="Hector Lizcano" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="habilidades">
+      <h2 class="section-title">Habilidades Técnicas</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fab fa-react"></i></div>
+          <h3>React</h3>
+          <p>Frontend moderno</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fab fa-python"></i></div>
+          <h3>Python</h3>
+          <p>Backend robusto</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-code"></i></div>
+          <h3>Django</h3>
+          <p>Framework web</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-mobile-alt"></i></div>
+          <h3>Flutter</h3>
+          <p>Apps móviles</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+          <h3>CSS/HTML</h3>
+          <p>Diseño responsive</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-database"></i></div>
+          <h3>PostgreSQL</h3>
+          <p>Bases de datos</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fab fa-js"></i></div>
+          <h3>JavaScript</h3>
+          <p>Interactividad</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-code-branch"></i></div>
+          <h3>Dart</h3>
+          <p>Desarrollo móvil</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="proyectos">
+      <h2 class="section-title">Proyectos Destacados</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Sistema de Gestión de Asesorías Académicas</h3>
+            <p>
+              Plataforma web completa para la gestión de asesorías académicas
+              del programa de Ingeniería de Sistemas en la Universidad Cesmag.
+              Sistema integral que permite organizar, programar y dar
+              seguimiento a las asesorías estudiantiles.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Django</span>
+              <span class="tech-tag">PostgreSQL</span>
+              <span class="tech-tag">REST API</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-content">
+            <h3>Sistema de Priorización de Cargas Eléctricas</h3>
+            <p>
+              Aplicación innovadora para gestionar proyectos eléctricos con
+              priorización inteligente de cargas. Integra simulación con ESP32 y
+              Arduino, generando pronósticos cada 5 minutos combinando red
+              eléctrica y energía fotovoltaica.
+            </p>
+            <div class="project-tech">
+              <span class="tech-tag">Flask</span>
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">JavaScript</span>
+              <span class="tech-tag">ESP32</span>
+              <span class="tech-tag">IoT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 2rem">
+        <a
+          href="https://github.com/Hector1120"
+          class="btn btn-primary"
+          target="_blank"
+          >Ver más en GitHub <i class="fas fa-arrow-right"></i
+        ></a>
+      </div>
+    </section>
+
+    <section class="section" id="contacto">
+      <h2 class="section-title">Conecta Conmigo</h2>
+      <p style="text-align: center; color: var(--gray); margin-bottom: 2rem">
+        ¿Tienes un proyecto en mente? ¡Hablemos! Estoy disponible para nuevas
+        oportunidades.
+      </p>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="nombre">Nombre Completo</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            required
+            placeholder="Tu nombre completo"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo Electrónico</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="tu@email.com"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="tema">Tema</label>
+          <input
+            type="text"
+            id="tema"
+            name="tema"
+            required
+            placeholder="Asunto del mensaje"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            required
+            placeholder="Escribe tu mensaje aquí..."
+          ></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">
+          Enviar Mensaje <i class="fas fa-paper-plane"></i>
+        </button>
+
+        <div class="form-message" id="formMessage"></div>
+      </form>
+
+      <div class="social-links">
+        <a
+          href="https://github.com/Hector1120"
+          target="_blank"
+          class="social-link"
+          title="GitHub"
+        >
+          <i class="fab fa-github"></i>
+        </a>
+        <a
+          href="https://www.facebook.com/YurLizcano"
+          target="_blank"
+          class="social-link"
+          title="Facebook"
+        >
+          <i class="fab fa-facebook"></i>
+        </a>
+        <a
+          href="https://www.instagram.com/yur._.lizcano/"
+          target="_blank"
+          class="social-link"
+          title="Instagram"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a
+          href="https://wa.link/w70ji8"
+          target="_blank"
+          class="social-link"
+          title="WhatsApp"
+        >
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        &copy; <span id="year"></span> Hector Yurbrainer Lizcano Agudelo. Todos
+        los derechos reservados.
+      </p>
+      <p style="margin-top: 0.5rem; color: var(--gray)">
+        Desarrollador Web & Móvil Full Stack
+      </p>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const navLinks = document.getElementById("navLinks");
+          navLinks.classList.remove("active");
+
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.style.background = "rgba(10, 10, 10, 0.98)";
+        } else {
+          navbar.style.background = "rgba(10, 10, 10, 0.95)";
+        }
+      });
+
+      // Manejo del formulario de contacto
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const nombre = document.getElementById("nombre").value;
+          const email = document.getElementById("email").value;
+          const tema = document.getElementById("tema").value;
+          const mensaje = document.getElementById("mensaje").value;
+          const formMessage = document.getElementById("formMessage");
+
+          // Crear el mailto con los datos del formulario
+          const mailtoLink = `mailto:lizcanoagudelo2@gmail.com?subject=${encodeURIComponent(
+            tema
+          )}&body=${encodeURIComponent(
+            `Nombre: ${nombre}\n` +
+              `Email: ${email}\n` +
+              `Tema: ${tema}\n\n` +
+              `Mensaje:\n${mensaje}`
+          )}`;
+
+          // Abrir el cliente de correo
+          window.location.href = mailtoLink;
+
+          // Mostrar mensaje de éxito
+          formMessage.textContent = "Abriendo tu cliente de correo...";
+          formMessage.className = "form-message success";
+          formMessage.style.display = "block";
+
+          // Limpiar el formulario después de 2 segundos
+          setTimeout(() => {
+            document.getElementById("contactForm").reset();
+            formMessage.style.display = "none";
+          }, 2000);
+        });
+    </script>
+  </body>
+</html>
