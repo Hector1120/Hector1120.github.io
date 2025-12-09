@@ -436,9 +436,14 @@
         transition: all 0.3s;
       }
 
-      .form-submit:hover {
+      .form-submit:hover:not(:disabled) {
         transform: translateY(-3px);
         box-shadow: 0 10px 30px rgba(0, 255, 135, 0.3);
+      }
+
+      .form-submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
       }
 
       .form-message {
@@ -684,7 +689,7 @@
           <input
             type="text"
             id="nombre"
-            name="nombre"
+            name="from_name"
             required
             placeholder="Tu nombre completo"
           />
@@ -695,7 +700,7 @@
           <input
             type="email"
             id="email"
-            name="email"
+            name="from_email"
             required
             placeholder="tu@email.com"
           />
@@ -706,7 +711,7 @@
           <input
             type="text"
             id="tema"
-            name="tema"
+            name="subject"
             required
             placeholder="Asunto del mensaje"
           />
@@ -716,13 +721,13 @@
           <label for="mensaje">Mensaje</label>
           <textarea
             id="mensaje"
-            name="mensaje"
+            name="message"
             required
             placeholder="Escribe tu mensaje aquí..."
           ></textarea>
         </div>
 
-        <button type="submit" class="form-submit">
+        <button type="submit" class="form-submit" id="submitBtn">
           Enviar Mensaje <i class="fas fa-paper-plane"></i>
         </button>
 
@@ -775,8 +780,17 @@
       </p>
     </footer>
 
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <script>
+      // Inicializar EmailJS con tu Public Key
+      (function() {
+        emailjs.init("a_xy8kzonCBgdS2Vn");
+      })();
+
       document.getElementById("year").textContent = new Date().getFullYear();
+      
       function toggleMenu() {
         const navLinks = document.getElementById("navLinks");
         navLinks.classList.toggle("active");
@@ -803,42 +817,55 @@
         }
       });
 
-      // Manejo del formulario de contacto
-      document
-        .getElementById("contactForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
+      // Manejo del formulario de contacto con EmailJS
+      document.getElementById("contactForm").addEventListener("submit", function (e) {
+        e.preventDefault();
 
-          const nombre = document.getElementById("nombre").value;
-          const email = document.getElementById("email").value;
-          const tema = document.getElementById("tema").value;
-          const mensaje = document.getElementById("mensaje").value;
-          const formMessage = document.getElementById("formMessage");
+        const submitBtn = document.getElementById("submitBtn");
+        const formMessage = document.getElementById("formMessage");
 
-          // Crear el mailto con los datos del formulario
-          const mailtoLink = `mailto:lizcanoagudelo2@gmail.com?subject=${encodeURIComponent(
-            tema
-          )}&body=${encodeURIComponent(
-            `Nombre: ${nombre}\n` +
-              `Email: ${email}\n` +
-              `Tema: ${tema}\n\n` +
-              `Mensaje:\n${mensaje}`
-          )}`;
+        // Deshabilitar el botón y cambiar el texto
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Enviando... <i class="fas fa-spinner fa-spin"></i>';
 
-          // Abrir el cliente de correo
-          window.location.href = mailtoLink;
+        // Enviar el email usando EmailJS
+        emailjs.sendForm('service_7h6nzwe', 'template_6s30ev7', this)
+          .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            
+            // Mostrar mensaje de éxito
+            formMessage.textContent = '¡Mensaje enviado exitosamente! Te responderé pronto.';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
 
-          // Mostrar mensaje de éxito
-          formMessage.textContent = "Abriendo tu cliente de correo...";
-          formMessage.className = "form-message success";
-          formMessage.style.display = "block";
-
-          // Limpiar el formulario después de 2 segundos
-          setTimeout(() => {
+            // Limpiar el formulario
             document.getElementById("contactForm").reset();
-            formMessage.style.display = "none";
-          }, 2000);
-        });
+
+            // Restaurar el botón después de 3 segundos
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = 'Enviar Mensaje <i class="fas fa-paper-plane"></i>';
+              formMessage.style.display = 'none';
+            }, 3000);
+
+          }, function(error) {
+            console.log('FAILED...', error);
+            
+            // Mostrar mensaje de error
+            formMessage.textContent = 'Hubo un error al enviar el mensaje. Por favor, intenta nuevamente.';
+            formMessage.className = 'form-message error';
+            formMessage.style.display = 'block';
+
+            // Restaurar el botón
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Enviar Mensaje <i class="fas fa-paper-plane"></i>';
+
+            // Ocultar mensaje de error después de 5 segundos
+            setTimeout(() => {
+              formMessage.style.display = 'none';
+            }, 5000);
+          });
+      });
     </script>
   </body>
 </html>
