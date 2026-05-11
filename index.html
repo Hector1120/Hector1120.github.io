@@ -314,6 +314,108 @@
         color: var(--light);
       }
 
+      /* ── CERTIFICATIONS ── */
+      .certs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .cert-card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(124,58,237,0.06));
+        border-radius: 20px;
+        padding: 2rem;
+        border: 2px solid rgba(0,255,135,0.1);
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cert-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--primary), var(--secondary));
+        border-radius: 20px 0 0 20px;
+      }
+
+      .cert-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--primary);
+        box-shadow: 0 20px 40px rgba(0,255,135,0.15);
+      }
+
+      .cert-icon-wrap {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(0,255,135,0.15), rgba(124,58,237,0.2));
+        border: 1px solid rgba(0,255,135,0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        color: var(--primary);
+        flex-shrink: 0;
+      }
+
+      .cert-body { flex: 1; }
+
+      .cert-issuer {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.3rem;
+      }
+
+      .cert-card h3 {
+        font-size: 1.15rem;
+        color: var(--light);
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+      }
+
+      .cert-card p {
+        font-size: 0.92rem;
+        color: var(--gray);
+        line-height: 1.55;
+      }
+
+      .cert-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1.2rem;
+        border-radius: 50px;
+        background: linear-gradient(135deg, rgba(0,255,135,0.12), rgba(124,58,237,0.12));
+        border: 1px solid rgba(0,255,135,0.35);
+        color: var(--primary);
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+        align-self: flex-start;
+      }
+
+      .cert-download:hover {
+        background: var(--primary);
+        color: var(--dark);
+        border-color: var(--primary);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,255,135,0.3);
+      }
+
+      .cert-download i { font-size: 0.9rem; }
+
       /* ── SOCIAL ── */
       .social-links { display: flex; justify-content: center; gap: 2rem; margin-top: 3rem; }
 
@@ -436,6 +538,7 @@
         .cta-buttons { justify-content: center; }
         .projects-grid { grid-template-columns: 1fr; }
         .skills-grid { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+        .certs-grid { grid-template-columns: 1fr; }
 
         .lang-btn .lang-label { display: none; }
         .lang-btn { padding: 5px 8px; }
@@ -451,6 +554,7 @@
           <li><a href="#inicio" data-i18n="nav.home">Home</a></li>
           <li><a href="#habilidades" data-i18n="nav.skills">Skills</a></li>
           <li><a href="#proyectos" data-i18n="nav.projects">Projects</a></li>
+          <li><a href="#certificaciones" data-i18n="nav.certs">Certifications</a></li>
           <li><a href="#contacto" data-i18n="nav.contact">Contact</a></li>
         </ul>
 
@@ -580,6 +684,63 @@
       </div>
     </section>
 
+    <!-- CERTIFICATIONS -->
+    <section class="section" id="certificaciones">
+      <h2 class="section-title" data-i18n="certs.title">Certifications</h2>
+      <p style="text-align:center; color:var(--gray); margin-top:-1.5rem; margin-bottom:1rem" data-i18n="certs.subtitle">Continuous learning and professional growth.</p>
+      <div class="certs-grid">
+
+        <!-- Cert 1: Impacto Maker – IA Generativa -->
+        <div class="cert-card">
+          <div class="cert-icon-wrap">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="cert-body">
+            <p class="cert-issuer" data-i18n="certs.c1.issuer">Impacto Maker</p>
+            <h3 data-i18n="certs.c1.title">Generative Artificial Intelligence</h3>
+            <p data-i18n="certs.c1.desc">Certification covering the fundamentals and practical applications of Generative AI, including language models, prompt engineering, and real-world use cases for building AI-powered solutions.</p>
+          </div>
+          <a href="/certificates/CERTIFICADO - IA GENERATIVA.pdf" download class="cert-download">
+            <i class="fas fa-download"></i>
+            <span data-i18n="certs.download">Download Certificate</span>
+          </a>
+        </div>
+
+        <!-- Cert 2: Inteligencia Digital – ProFuturo -->
+        <div class="cert-card">
+          <div class="cert-icon-wrap">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="cert-body">
+            <p class="cert-issuer" data-i18n="certs.c2.issuer">ProFuturo · Colombia</p>
+            <h3 data-i18n="certs.c2.title">Digital Intelligence</h3>
+            <p data-i18n="certs.c2.desc">Program focused on digital skills, critical thinking in digital environments, cybersecurity awareness, and responsible use of technology, delivered by ProFuturo for Colombia.</p>
+          </div>
+          <a href="/certificates/CERTIFICADO - INTELIGENCIA DIGITAL.pdf" download class="cert-download">
+            <i class="fas fa-download"></i>
+            <span data-i18n="certs.download">Download Certificate</span>
+          </a>
+        </div>
+
+        <!-- Cert 3: ClusterTIC Nariño – Expositor -->
+        <div class="cert-card">
+          <div class="cert-icon-wrap">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div class="cert-body">
+            <p class="cert-issuer" data-i18n="certs.c3.issuer">ClusterTIC Nariño</p>
+            <h3 data-i18n="certs.c3.title">Speaker – ClusterTIC Nariño</h3>
+            <p data-i18n="certs.c3.desc">Recognition as a speaker at ClusterTIC Nariño, presenting innovative technology projects and contributing to the regional tech ecosystem by sharing knowledge and development experiences.</p>
+          </div>
+          <a href="/certificates/CERTIFICADO - CLUSTER TIC.pdf" download class="cert-download">
+            <i class="fas fa-download"></i>
+            <span data-i18n="certs.download">Download Certificate</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section class="section" id="contacto">
       <h2 class="section-title" data-i18n="contact.title">Connect With Me</h2>
@@ -631,6 +792,7 @@
           "nav.home": "Home",
           "nav.skills": "Skills",
           "nav.projects": "Projects",
+          "nav.certs": "Certifications",
           "nav.contact": "Contact",
           "hero.greeting": "Hello, I am",
           "hero.desc": "Full Stack Web & Mobile Developer specialized in building innovative solutions with React, Django, Flutter and more.",
@@ -651,6 +813,18 @@
           "projects.p2.title": "Electrical Load Prioritization System",
           "projects.p2.desc": "Innovative application for managing electrical projects with intelligent load prioritization. Integrates simulation with ESP32 and Arduino, generating forecasts every 5 minutes combining grid power and photovoltaic energy.",
           "projects.github": "See more on GitHub",
+          "certs.title": "Certifications",
+          "certs.subtitle": "Continuous learning and professional growth.",
+          "certs.download": "Download Certificate",
+          "certs.c1.issuer": "Impacto Maker",
+          "certs.c1.title": "Generative Artificial Intelligence",
+          "certs.c1.desc": "Certification covering the fundamentals and practical applications of Generative AI, including language models, prompt engineering, and real-world use cases for building AI-powered solutions.",
+          "certs.c2.issuer": "ProFuturo · Colombia",
+          "certs.c2.title": "Digital Intelligence",
+          "certs.c2.desc": "Program focused on digital skills, critical thinking in digital environments, cybersecurity awareness, and responsible use of technology, delivered by ProFuturo for Colombia.",
+          "certs.c3.issuer": "ClusterTIC Nariño",
+          "certs.c3.title": "Speaker – ClusterTIC Nariño",
+          "certs.c3.desc": "Recognition as a speaker at ClusterTIC Nariño, presenting innovative technology projects and contributing to the regional tech ecosystem by sharing knowledge and development experiences.",
           "contact.title": "Connect With Me",
           "contact.subtitle": "Have a project in mind? Let's talk! I'm available for new opportunities.",
           "contact.name": "Full Name",
@@ -673,6 +847,7 @@
           "nav.home": "Inicio",
           "nav.skills": "Habilidades",
           "nav.projects": "Proyectos",
+          "nav.certs": "Certificaciones",
           "nav.contact": "Contacto",
           "hero.greeting": "Hola, soy",
           "hero.desc": "Desarrollador Web & Móvil Full Stack especializado en crear soluciones innovadoras con React, Django, Flutter y más.",
@@ -693,6 +868,18 @@
           "projects.p2.title": "Sistema de Priorización de Cargas Eléctricas",
           "projects.p2.desc": "Aplicación innovadora para gestionar proyectos eléctricos con priorización inteligente de cargas. Integra simulación con ESP32 y Arduino, generando pronósticos cada 5 minutos combinando red eléctrica y energía fotovoltaica.",
           "projects.github": "Ver más en GitHub",
+          "certs.title": "Certificaciones",
+          "certs.subtitle": "Aprendizaje continuo y crecimiento profesional.",
+          "certs.download": "Descargar Certificado",
+          "certs.c1.issuer": "Impacto Maker",
+          "certs.c1.title": "Inteligencia Artificial Generativa",
+          "certs.c1.desc": "Certificación que cubre los fundamentos y aplicaciones prácticas de la IA Generativa, incluyendo modelos de lenguaje, ingeniería de prompts y casos de uso reales para construir soluciones impulsadas por inteligencia artificial.",
+          "certs.c2.issuer": "ProFuturo · Colombia",
+          "certs.c2.title": "Inteligencia Digital",
+          "certs.c2.desc": "Programa enfocado en habilidades digitales, pensamiento crítico en entornos digitales, conciencia sobre ciberseguridad y uso responsable de la tecnología, impartido por ProFuturo para Colombia.",
+          "certs.c3.issuer": "ClusterTIC Nariño",
+          "certs.c3.title": "Expositor – ClusterTIC Nariño",
+          "certs.c3.desc": "Reconocimiento como expositor en el ClusterTIC Nariño, presentando proyectos tecnológicos innovadores y contribuyendo al ecosistema tecnológico regional compartiendo conocimientos y experiencias de desarrollo.",
           "contact.title": "Conecta Conmigo",
           "contact.subtitle": "¿Tienes un proyecto en mente? ¡Hablemos! Estoy disponible para nuevas oportunidades.",
           "contact.name": "Nombre Completo",
@@ -718,27 +905,22 @@
         currentLang = lang;
         const t = translations[lang];
 
-        // Update <html> lang attribute
         document.documentElement.lang = lang;
 
-        // Update page title
         document.title = lang === 'en'
           ? 'Hector Yurbrainer Lizcano Agudelo - Web & Mobile Developer'
           : 'Hector Yurbrainer Lizcano Agudelo - Desarrollador Web & Móvil';
 
-        // Update text nodes
         document.querySelectorAll('[data-i18n]').forEach(el => {
           const key = el.getAttribute('data-i18n');
           if (t[key] !== undefined) el.textContent = t[key];
         });
 
-        // Update placeholders
         document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
           const key = el.getAttribute('data-i18n-placeholder');
           if (t[key] !== undefined) el.placeholder = t[key];
         });
 
-        // Toggle active button styles
         document.getElementById('btn-en').classList.toggle('active', lang === 'en');
         document.getElementById('btn-es').classList.toggle('active', lang === 'es');
         document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
@@ -799,7 +981,6 @@
           });
       });
 
-      // Initialize default language
       setLang('en');
     </script>
   </body>
